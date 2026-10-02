@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Analyze Resume | ResumeGap</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">ResumeGap</div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+        </div>
+    </nav>
+
+
+    <main>
+
+        <section class="analyze-page">
+
+            <div class="page-heading">
+
+                <p class="eyebrow">RESUME ANALYSIS</p>
+
+                <h1>
+                    Let's find your
+                    <span>skill gaps.</span>
+                </h1>
+
+                <p class="description">
+                    Upload your resume and paste the job description
+                    you're applying for.
+                </p>
+
+            </div>
+
+
+            <form class="analysis-form" action="/analyze" method="POST" enctype="multipart/form-data">
+
+                <div class="input-card">
+
+                    <label for="resume">
+                        Your Resume
+                    </label>
+
+                    <div class="upload-box">
+
+                        <div class="upload-icon">
+                            ↑
+                        </div>
+
+                        <h3>Upload your resume</h3>
+
+                        <p>
+                            PDF files only · Maximum 5 MB
+                        </p>
+
+                        <input
+                            type="file"
+                            id="resume"
+                            name="resume"
+                            accept=".pdf"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="input-card">
+
+                    <label for="job-description">
+                        Job Description
+                    </label>
+
+                    <textarea
+                        id="job-description"
+                        name="job_description"
+                        placeholder="Paste the job description here..."
+                    ></textarea>
+
+                    <p class="helper-text">
+                        Include the complete job description for a more accurate analysis.
+                    </p>
+
+                </div>
+
+
+                <button type="submit" class="primary-btn">
+                    Analyze Resume
+                    <span>→</span>
+                </button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>

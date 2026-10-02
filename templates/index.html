@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ResumeGap | Resume Analyzer</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">ResumeGap</div>
+
+        <div class="nav-links">
+            <a href="#">How it works</a>
+            <a href="#">About</a>
+        </div>
+    </nav>
+
+
+    <main>
+
+        <section class="hero">
+
+            <p class="eyebrow">RESUME × JOB DESCRIPTION</p>
+
+            <h1>
+                Know what your resume
+                <span>is missing.</span>
+            </h1>
+
+            <p class="description">
+                Compare your resume with a job description,
+                discover your skill gaps, and understand what
+                you can improve before applying.
+            </p>
+
+            <a href="/analyze" class="primary-btn">
+    Analyze My Resume
+    <span>→</span>
+</a>
+
+        </section>
+
+
+        <section class="preview">
+
+            <div class="preview-card">
+
+                <div class="card-header">
+                    <span>Resume Analysis</span>
+                    <span class="status">● Ready</span>
+                </div>
+
+                <div class="score-section">
+
+                    <div class="score">
+                        <strong>78%</strong>
+                        <span>Match</span>
+                    </div>
+
+                    <div class="stats">
+
+                        <div>
+                            <strong>12</strong>
+                            <span>Matched Skills</span>
+                        </div>
+
+                        <div>
+                            <strong>4</strong>
+                            <span>Skill Gaps</span>
+                        </div>
+
+                        <div>
+                            <strong>3</strong>
+                            <span>Suggestions</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="skills">
+
+                    <div class="skill">
+                        <span>SQL</span>
+                        <span class="matched">✓</span>
+                    </div>
+
+                    <div class="skill">
+                        <span>Python</span>
+                        <span class="matched">✓</span>
+                    </div>
+
+                    <div class="skill">
+                        <span>Power BI</span>
+                        <span class="matched">✓</span>
+                    </div>
+
+                    <div class="skill">
+                        <span>Tableau</span>
+                        <span class="missing">!</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

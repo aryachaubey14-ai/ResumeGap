@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Resume Analysis | ResumeGap</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav>
+
+        <div class="logo">
+            ResumeGap
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/analyze">
+                New Analysis
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <main class="results-page">
+
+
+        <!-- ============================= -->
+        <!-- HEADING -->
+        <!-- ============================= -->
+
+        <section class="results-heading">
+
+            <p class="eyebrow">
+                RESUME ANALYSIS
+            </p>
+
+            <h1>
+                Here's your
+                <span>skill gap.</span>
+            </h1>
+
+            <p class="description">
+
+                We compared your resume with the job description
+                and identified the skills you already have and the
+                ones you may want to strengthen.
+
+            </p>
+
+        </section>
+
+
+
+        <!-- ============================= -->
+        <!-- SCORE CARD -->
+        <!-- ============================= -->
+
+        <section class="score-card">
+
+
+            <div class="score-circle">
+
+                <strong>
+                    {{ match_score }}%
+                </strong>
+
+                <span>
+                    Match
+                </span>
+
+            </div>
+
+
+            <div class="score-info">
+
+                <h2>
+                    Resume Match Score
+                </h2>
+
+
+                <p>
+
+                    Your resume matches
+
+                    <strong>
+                        {{ matched_required|length }}
+                    </strong>
+
+                    of
+
+                    <strong>
+                        {{ required_skills|length }}
+                    </strong>
+
+                    required skills.
+
+                </p>
+
+
+                <p>
+
+                    You also match
+
+                    <strong>
+                        {{ matched_preferred|length }}
+                    </strong>
+
+                    of
+
+                    <strong>
+                        {{ preferred_skills|length }}
+                    </strong>
+
+                    preferred skills.
+
+                </p>
+
+
+                <!-- Score Status -->
+
+                <p class="score-status">
+
+                    {% if match_score >= 80 %}
+
+                        Strong skill alignment
+
+                    {% elif match_score >= 60 %}
+
+                        Good skill alignment
+
+                    {% elif match_score >= 40 %}
+
+                        Moderate skill alignment
+
+                    {% else %}
+
+                        Skills need improvement
+
+                    {% endif %}
+
+                </p>
+
+
+                <!-- Progress -->
+
+                <div class="progress-container">
+
+                    <div class="progress-bar">
+
+                        <div
+                            class="progress-fill"
+                            style="width: {{ match_score }}%;">
+                        </div>
+
+                    </div>
+
+
+                    <span class="progress-label">
+
+                        {{ match_score }}% weighted skill coverage
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ============================= -->
+        <!-- REQUIRED SKILLS -->
+        <!-- ============================= -->
+
+        <section class="skill-category-section">
+
+
+            <div class="category-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        CORE REQUIREMENTS
+                    </p>
+
+                    <h2>
+                        Required Skills
+                    </h2>
+
+                    <p>
+                        These skills appear to be essential
+                        for the role.
+                    </p>
+
+                </div>
+
+
+                <div class="category-count">
+
+                    <strong>
+                        {{ matched_required|length }}
+                    </strong>
+
+                    <span>
+                        /
+                        {{ required_skills|length }}
+                        matched
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="skill-grid">
+
+
+                {% for skill in required_skills %}
+
+                <div
+                    class="analysis-skill
+                    {% if skill in matched_required %}
+                        skill-match
+                    {% else %}
+                        skill-missing
+                    {% endif %}"
+                >
+
+                    <span>
+                        {{ skill }}
+                    </span>
+
+
+                    {% if skill in matched_required %}
+
+                        <span class="skill-status">
+                            ✓
+                        </span>
+
+                    {% else %}
+
+                        <span class="skill-status">
+                            !
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+                {% endfor %}
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ============================= -->
+        <!-- PREFERRED SKILLS -->
+        <!-- ============================= -->
+
+        <section class="skill-category-section">
+
+
+            <div class="category-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        ADDITIONAL ADVANTAGE
+                    </p>
+
+                    <h2>
+                        Preferred Skills
+                    </h2>
+
+                    <p>
+                        These skills can strengthen your profile,
+                        but may not be essential.
+                    </p>
+
+                </div>
+
+
+                <div class="category-count">
+
+                    <strong>
+                        {{ matched_preferred|length }}
+                    </strong>
+
+                    <span>
+                        /
+                        {{ preferred_skills|length }}
+                        matched
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="skill-grid">
+
+
+                {% for skill in preferred_skills %}
+
+                <div
+                    class="analysis-skill
+                    {% if skill in matched_preferred %}
+                        skill-match
+                    {% else %}
+                        skill-missing
+                    {% endif %}"
+                >
+
+                    <span>
+                        {{ skill }}
+                    </span>
+
+
+                    {% if skill in matched_preferred %}
+
+                        <span class="skill-status">
+                            ✓
+                        </span>
+
+                    {% else %}
+
+                        <span class="skill-status">
+                            !
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+                {% endfor %}
+
+
+                {% if not preferred_skills %}
+
+                <div class="empty-category">
+
+                    No preferred skills were detected
+                    in this job description.
+
+                </div>
+
+                {% endif %}
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ============================= -->
+        <!-- IMPROVEMENT SUGGESTIONS -->
+        <!-- ============================= -->
+
+        <section class="suggestions-section">
+
+
+            <div class="result-card">
+
+
+                <div class="result-header">
+
+                    <div>
+
+                        <h2>
+                            What You Can Improve
+                        </h2>
+
+                        <p class="section-subtitle">
+                            Practical ways to strengthen your profile.
+                        </p>
+
+                    </div>
+
+
+                    <span class="count">
+                        {{ suggestions|length }}
+                    </span>
+
+                </div>
+
+
+
+                <div class="suggestion-list">
+
+
+                    {% if suggestions %}
+
+
+                        {% for item in suggestions %}
+
+                        <div class="suggestion-item">
+
+
+                            <div class="suggestion-icon">
+                                !
+                            </div>
+
+
+                            <div class="suggestion-content">
+
+                                <h3>
+                                    {{ item.skill }}
+                                </h3>
+
+                                <p>
+                                    {{ item.suggestion }}
+                                </p>
+
+                            </div>
+
+
+                        </div>
+
+                        {% endfor %}
+
+
+                    {% else %}
+
+
+                        <div class="suggestion-item">
+
+                            <div class="suggestion-icon">
+                                ✓
+                            </div>
+
+                            <div class="suggestion-content">
+
+                                <h3>
+                                    Great match!
+                                </h3>
+
+                                <p>
+                                    No specific skill gaps were detected
+                                    from the current job description.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                    {% endif %}
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ============================= -->
+        <!-- CAREER INSIGHTS -->
+        <!-- ============================= -->
+
+        <section class="career-section">
+
+
+            <div class="career-card">
+
+
+                <div class="career-header">
+
+
+                    <div>
+
+                        <p class="eyebrow">
+                            CAREER INSIGHTS
+                        </p>
+
+
+                        <h2>
+                            Where these skills
+                            can take you.
+                        </h2>
+
+
+                        <p class="career-description">
+
+                            Explore roles, commonly requested skills,
+                            example employers, and estimated salary
+                            information related to this job profile.
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="career-badge">
+                        Data Analyst
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- Career Stats -->
+
+                <div class="career-stats">
+
+
+                    <div class="career-stat">
+
+                        <span class="stat-label">
+                            Role
+                        </span>
+
+                        <strong>
+                            Data Analyst
+                        </strong>
+
+                        <span class="stat-note">
+                            Based on the current JD
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="career-stat">
+
+                        <span class="stat-label">
+                            Estimated Salary
+                        </span>
+
+                        <strong>
+                            ₹4–10 LPA
+                        </strong>
+
+                        <span class="stat-note">
+                            Indicative India range
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="career-stat">
+
+                        <span class="stat-label">
+                            Skill Gaps
+                        </span>
+
+                        <strong>
+                            {{ missing_skills|length }}
+                        </strong>
+
+                        <span class="stat-note">
+                            Skills to strengthen
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- Common Skills -->
+
+                <div class="career-block">
+
+                    <h3>
+                        Commonly requested skills
+                    </h3>
+
+
+                    <div class="career-tags">
+
+                        <span>SQL</span>
+                        <span>Python</span>
+                        <span>Excel</span>
+                        <span>Power BI</span>
+                        <span>Tableau</span>
+                        <span>Data Visualization</span>
+                        <span>Statistics</span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Example Employers -->
+
+                <div class="career-block">
+
+                    <h3>
+                        Example employers
+                    </h3>
+
+
+                    <div class="company-grid">
+
+                        <div class="company-card">
+
+                            <strong>
+                                Technology companies
+                            </strong>
+
+                            <span>
+                                Data & analytics teams
+                            </span>
+
+                        </div>
+
+
+                        <div class="company-card">
+
+                            <strong>
+                                Consulting firms
+                            </strong>
+
+                            <span>
+                                Business intelligence roles
+                            </span>
+
+                        </div>
+
+
+                        <div class="company-card">
+
+                            <strong>
+                                Financial services
+                            </strong>
+
+                            <span>
+                                Reporting & analytics teams
+                            </span>
+
+                        </div>
+
+
+                        <div class="company-card">
+
+                            <strong>
+                                Startups
+                            </strong>
+
+                            <span>
+                                Product & business analytics
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Career Note -->
+
+                <div class="career-note">
+
+                    <span>
+                        ⓘ
+                    </span>
+
+                    <p>
+
+                        Salary figures are indicative estimates,
+                        not guaranteed compensation. Actual salaries
+                        vary by experience, location, company, role,
+                        and hiring conditions.
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ============================= -->
+        <!-- ACTION -->
+        <!-- ============================= -->
+
+        <div class="results-actions">
+
+            <a href="/analyze" class="primary-btn">
+
+                Analyze Another Resume
+
+                <span>
+                    →
+                </span>
+
+            </a>
+
+        </div>
+
+
+    </main>
+
+</body>
+
+</html>
